@@ -17,7 +17,9 @@ typedef struct {
     float notas[3];
 }Aluno;
 
-int
+float media(Aluno);
+
+void status(Aluno, float);
 
 int main(){
     Aluno a[5];
@@ -26,11 +28,54 @@ int main(){
         printf("Aluno %d \n", i + 1);
         printf(" - RA: ");
         scanf("%d", &a[i].ra);
+        getchar();
         printf(" - Nome: ");
         fgets(a[i].nome, sizeof(a[i].nome), stdin);
+        a[i].nome[strlen(a[i].nome) - 1] = '\0';
         for(int j = 0; j < 3; j++){
-            printf("Nota prova %d: ", j + 1);
-            scanf("%d", a[i].nota[j]);
+            printf(" - Nota prova %d: ", j + 1);
+            scanf("%f", &a[i].notas[j]);
         }
+    }
+
+    float maior, menor, p1;
+
+    for(int i = 0; i < 5; i++){
+        float x = media(a[i]);
+        if(i == 0){
+            maior = x;
+            menor = x;
+            p1 = a[i].notas[0];
+        }else{
+            if(p1 < a[i].notas[0]){
+                p1 = a[i].notas[0];
+            }
+            if(maior < x){
+                maior = x;
+            }
+            if(menor > x){
+                menor = x;
+            }
+        }
+
+        status(a[i], x);
+    }
+
+    printf("\n\nMaior media: %.1f", maior);
+    printf("\nMenor media: %.1f", menor);
+    printf("\nMaior nota na prova 1: %.1f \n", p1);
+
+    return 0;
+}
+
+float media(Aluno a){
+    return (a.notas[0] + a.notas[1] + a.notas[2]) / 3;
+}
+
+void status(Aluno a, float media){
+    if (media >= 6){
+        printf("\n%s foi aprovado!", a.nome);
+    }else{
+        printf("\n%s foi reprovado.", a.nome);
     }
 }
