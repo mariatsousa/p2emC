@@ -128,6 +128,6 @@ void buscar(Receita r[], int q, char n[]){
     }
 
     if(cond == 0){
-        printf("Nao encontrado!! \n");
+        printf("Nao encontrado!! \n");  
     }
 }
